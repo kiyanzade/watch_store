@@ -16,52 +16,83 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int activeScreenIndex = 0;
+  final GlobalKey<NavigatorState> _homeScreenKey = GlobalKey();
+  final GlobalKey<NavigatorState> _basketScreenKey = GlobalKey();
+  final GlobalKey<NavigatorState> _profileSreenKey = GlobalKey();
+
+  late final Map globalKeyMap = {
+    0: _homeScreenKey,
+    1: _basketScreenKey,
+    2: _profileSreenKey
+  };
+
+  Future<bool> _onWillPop() async {
+    if (globalKeyMap[activeScreenIndex].currentState.canPop()) {
+      globalKeyMap[activeScreenIndex].currentState.pop();
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: Container(
-          width: size.width,
-          height: size.height * 0.1,
-          color: AppColors.btmNavColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: Container(
+            width: size.width,
+            height: size.height * 0.1,
+            color: AppColors.btmNavColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                BtmNavActiveItem(
+                  iconPath: Assets.images.home,
+                  label: AppStrings.home,
+                  isActive: activeScreenIndex == 0,
+                  onTap: () => btnNavOnTap(0),
+                ),
+                BtmNavActiveItem(
+                  iconPath: Assets.images.cart,
+                  label: AppStrings.basket,
+                  isActive: activeScreenIndex == 1,
+                  onTap: () => btnNavOnTap(1),
+                ),
+                BtmNavActiveItem(
+                  iconPath: Assets.images.user,
+                  label: AppStrings.userProfile,
+                  isActive: activeScreenIndex == 2,
+                  onTap: () => btnNavOnTap(2),
+                ),
+              ],
+            ),
+          ),
+          body: IndexedStack(
+            index: activeScreenIndex,
             children: [
-              BtmNavActiveItem(
-                iconPath: Assets.images.home,
-                label: AppStrings.home,
-                isActive: activeScreenIndex == 0,
-                onTap: () => btnNavOnTap(0),
+              Navigator(
+                key: _homeScreenKey,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
               ),
-              BtmNavActiveItem(
-                iconPath: Assets.images.cart,
-                label: AppStrings.basket,
-                isActive: activeScreenIndex == 1,
-                onTap: () => btnNavOnTap(1),
+              Navigator(
+                key: _basketScreenKey,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                  builder: (context) => const BasketScreen(),
+                ),
               ),
-              BtmNavActiveItem(
-                iconPath: Assets.images.user,
-                label: AppStrings.userProfile,
-                isActive: activeScreenIndex == 2,
-                onTap: () => btnNavOnTap(2),
+              Navigator(
+                key: _profileSreenKey,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
               ),
             ],
           ),
-        ),
-        body: IndexedStack(
-          index: activeScreenIndex,
-          children: [
-            Navigator(
-              onGenerateRoute: (settings) => MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            ),
-            // HomeScreen(),
-            const BasketScreen(),
-            const ProfileScreen(),
-          ],
         ),
       ),
     );
