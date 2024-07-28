@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:watch_store_app/components/theme.dart';
+import 'package:watch_store_app/screens/register_screen.dart';
 import 'package:watch_store_app/screens/send_otp_screen.dart';
+import 'package:watch_store_app/screens/verify_otp_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
+      ],
+      locale: const Locale("fa", "IR"),
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SendOtpScreen(),
+      theme: lightThemeData,
+      home: const RegisterScreen(),
     );
   }
 }
-
