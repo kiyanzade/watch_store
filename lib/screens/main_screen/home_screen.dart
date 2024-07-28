@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:watch_store_app/screens/send_otp_screen.dart';
-import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
+import 'package:watch_store_app/widgets/app_slider_widget.dart';
+import 'package:watch_store_app/widgets/search_bar_button_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,11 +8,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ElevatedButtomWidget(
-        title: 'aaa',
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const SendOtpScreen(),
-        )),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SearchBarButton(onTap: () {}),
+            const AppSliderWidget(),
+          ],
+        ),
       ),
     );
   }
