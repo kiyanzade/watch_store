@@ -3,6 +3,8 @@ import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
+import 'package:watch_store_app/routes/screen_names.dart';
+import 'package:watch_store_app/widgets/app_bar_widget.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
 import 'package:watch_store_app/widgets/text_field_widget.dart';
 
@@ -13,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text(AppStrings.register),leading: const Icon(Icons.arrow_back),),
+        appBar: appBarWidget(AppStrings.register),
         body: SingleChildScrollView(
           child: SizedBox(
             width: double.infinity,
@@ -62,7 +64,9 @@ class RegisterScreen extends StatelessWidget {
                 AppDimens.large.heightSizedBox,
                 ElevatedButtomWidget(
                   title: AppStrings.register,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, ScreenNames.mainScreen);
+                  },
                 ),
                 AppDimens.large.heightSizedBox,
               ],

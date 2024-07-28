@@ -3,6 +3,7 @@ import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
+import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
 import 'package:watch_store_app/widgets/text_field_widget.dart';
 
@@ -30,7 +31,9 @@ class SendOtpScreen extends StatelessWidget {
               AppDimens.large.heightSizedBox,
               ElevatedButtomWidget(
                 title: AppStrings.sendOtpCode,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ScreenNames.verifyOtpScreen);
+                },
               ),
             ],
           ),

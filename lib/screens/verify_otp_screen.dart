@@ -4,6 +4,7 @@ import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
+import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
 import 'package:watch_store_app/widgets/text_field_widget.dart';
 
@@ -47,7 +48,9 @@ class VerifyOtpScreen extends StatelessWidget {
               AppDimens.large.heightSizedBox,
               ElevatedButtomWidget(
                 title: AppStrings.next,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ScreenNames.registerScreen);
+                },
               ),
             ],
           ),

@@ -19,9 +19,7 @@ class ElevatedButtomWidget extends StatelessWidget {
       width: size.width * 0.75,
       height: size.height * 0.07,
       child: ElevatedButton(
-        onPressed: () {
-          
-        },
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
