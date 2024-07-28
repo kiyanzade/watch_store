@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
@@ -26,9 +28,21 @@ class _MainScreenState extends State<MainScreen> {
     2: _profileSreenKey
   };
 
+  final Queue<int> _routeHistoryMainScreenItems = Queue()..add(0);
+
   Future<bool> _onWillPop() async {
     if (globalKeyMap[activeScreenIndex].currentState.canPop()) {
       globalKeyMap[activeScreenIndex].currentState.pop();
+    } else if (_routeHistoryMainScreenItems.length >1) {
+      setState(() {
+        _routeHistoryMainScreenItems.removeLast();
+        activeScreenIndex = _routeHistoryMainScreenItems.last;
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => const Text("end"),
+      );
     }
     return false;
   }
@@ -99,6 +113,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   btnNavOnTap(int index) {
+    _routeHistoryMainScreenItems.add(index);
     setState(() {
       activeScreenIndex = index;
     });
