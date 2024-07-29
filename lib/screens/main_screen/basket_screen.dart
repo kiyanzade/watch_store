@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
@@ -13,6 +13,8 @@ class BasketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final Size size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       appBar: appBarWidget(AppStrings.basket),
       body: Column(
@@ -76,9 +78,26 @@ class BasketScreen extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black,
-            height: 100,
-            width: 52000,
+            padding: const EdgeInsets.all(AppDimens.medium),
+            color: Colors.grey.withOpacity(0.009),
+            // height: size.height * 0.08,
+            width: size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "ادامه فرایند خرید",
+                    style: themeData.textTheme.labelMedium,
+                  ),
+                ),
+                Text(
+                  "مجموع: ${"4410000".seRagham()} تومان",
+                  style: themeData.textTheme.titleLarge,
+                ),
+              ],
+            ),
           )
         ],
       ),

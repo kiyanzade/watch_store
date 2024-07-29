@@ -50,5 +50,5 @@ abstract class AppStrings {
   static const String cancelled = "لغو شده";
   static const String delivered = "تحویل شده";
   static const String lurem =
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ ";
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت  چاپ چاپ چاپ چاپ چاپ ";
 }
