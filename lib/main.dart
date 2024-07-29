@@ -30,9 +30,8 @@ class MyApp extends StatelessWidget {
       locale: const Locale("fa", "IR"),
       title: 'Flutter Demo',
       theme: lightThemeData,
-      // initialRoute: ScreenNames.root,
-      home: const ProductDetailScreen(),
-      // routes: routes,
+      initialRoute: ScreenNames.root,
+        routes: routes,
     );
   }
 }
