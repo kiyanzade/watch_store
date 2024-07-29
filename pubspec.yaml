@@ -16,6 +16,7 @@ dependencies:
   flutter_localization: ^0.2.0
   flutter_svg: ^2.0.10+1
   carousel_slider: ^4.2.1
+  persian_number_utility: ^1.1.4
 
 dev_dependencies:
   flutter_test:

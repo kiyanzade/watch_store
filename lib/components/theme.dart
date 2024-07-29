@@ -40,7 +40,9 @@ ThemeData lightThemeData = ThemeData(
   ),
   textTheme: const TextTheme(
     bodyMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.w500,fontSize: 14),
+    headlineMedium: TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.w500,fontSize: 16),
     titleMedium: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500,fontSize: 14),
+    titleLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.w700,fontSize: 16),
     labelMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16),
     labelSmall: TextStyle(color: Colors.black,)
   ),
