@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
 import 'package:watch_store_app/routes/screen_names.dart';
+import 'package:watch_store_app/screens/authentication/cubit/auth_cubit.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
 import 'package:watch_store_app/widgets/text_field_widget.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
-  const VerifyOtpScreen({super.key});
+  VerifyOtpScreen({super.key});
+  final TextEditingController _codeControllr = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final String phoneNumber =
+        ModalRoute.of(context)!.settings.arguments as String;
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -27,7 +32,7 @@ class VerifyOtpScreen extends StatelessWidget {
               (AppDimens.large * 2).heightSizedBox,
               Text(
                 AppStrings.otpCodeSendFor
-                    .replaceFirst(AppStrings.replace, '09107793789'),
+                    .replaceFirst(AppStrings.replace, phoneNumber),
                 style: themeData.textTheme.bodyMedium,
               ),
               AppDimens.small.heightSizedBox,
@@ -38,7 +43,7 @@ class VerifyOtpScreen extends StatelessWidget {
               ),
               AppDimens.large.heightSizedBox,
               TextFieldWidget(
-                controller: TextEditingController(),
+                controller: _codeControllr,
                 hint: AppStrings.hintVerificationCode,
                 title: AppStrings.enterVerificationCode,
                 keyboardType: TextInputType.number,
@@ -46,10 +51,31 @@ class VerifyOtpScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               AppDimens.large.heightSizedBox,
-              ElevatedButtomWidget(
-                title: AppStrings.next,
-                onPressed: () {
-                  Navigator.pushNamed(context, ScreenNames.registerScreen);
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthVerifiedRegisteredCodeState) {
+                    Navigator.of(context).pushNamed(ScreenNames.mainScreen);
+                  } else if (state is AuthVerifiedNotRegisteredCodeState) {
+                    Navigator.of(context).pushNamed(ScreenNames.registerScreen);
+                  }
+                },
+                builder: (context, state) {
+                  return ElevatedButtomWidget(
+                    title: (state is AuthLoadingState)
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(
+                            AppStrings.next,
+                            style: themeData.textTheme.labelMedium,
+                          ),
+                    onPressed: (state is AuthLoadingState)
+                        ? () {}
+                        : () {
+                            BlocProvider.of<AuthCubit>(context)
+                                .verivyCode(phoneNumber, _codeControllr.text);
+                          },
+                  );
                 },
               ),
             ],

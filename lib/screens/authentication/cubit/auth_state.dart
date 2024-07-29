@@ -7,11 +7,20 @@ final class AuthInitialState extends AuthState {}
 
 final class AuthLoadingState extends AuthState {}
 
-final class AuthErrorState extends AuthState {}
+final class AuthErrorState extends AuthState {
+  final String error;
 
-final class AuthSentCodeState extends AuthState {}
+  AuthErrorState( {required this.error});
+}
 
-final class AuthVerifyCodeState extends AuthState {}
+final class AuthSentCodeState extends AuthState {
+  final String phoneNumber;
+
+  AuthSentCodeState({required this.phoneNumber});
+}
+
+final class AuthVerifiedRegisteredCodeState extends AuthState {}
+final class AuthVerifiedNotRegisteredCodeState extends AuthState {}
 
 final class AuthLoggedInState extends AuthState {}
 

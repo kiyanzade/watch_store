@@ -13,6 +13,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: appBarWidget(AppStrings.register),
@@ -63,7 +64,10 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 AppDimens.large.heightSizedBox,
                 ElevatedButtomWidget(
-                  title: AppStrings.register,
+                  title: Text(
+                    AppStrings.register,
+                    style: themeData.textTheme.labelMedium,
+                  ),
                   onPressed: () {
                     Navigator.pushNamed(context, ScreenNames.mainScreen);
                   },

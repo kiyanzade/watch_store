@@ -48,6 +48,7 @@ class TextFieldWidget extends StatelessWidget {
           SizedBox(
             height: size.height * 0.07,
             child: TextField(
+              controller: controller,
               keyboardType: keyboardType,
               textAlign: textAlign,
               decoration: InputDecoration(

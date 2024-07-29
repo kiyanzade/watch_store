@@ -36,18 +36,20 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: lightThemeData,
         // initialRoute: ScreenNames.root,
-        //   routes: routes,
-        home: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            if (state is AuthLoggedInState) {
-              return const MainScreen();
-            } else if (state is AuthLoggedOutState) {
-              return const SendOtpScreen();
-            } else {
-              return const SendOtpScreen();
-            }
-          },
-        ),
+        routes: routes,
+        home: SendOtpScreen(),
+
+        //  BlocBuilder<AuthCubit, AuthState>(
+        //   builder: (context, state) {
+        //     if (state is AuthLoggedInState) {
+        //       return const MainScreen();
+        //     } else if (state is AuthLoggedOutState) {
+        //       return  SendOtpScreen();
+        //     } else {
+        //       return  SendOtpScreen();
+        //     }
+        //   },
+        // ),
       ),
     );
   }

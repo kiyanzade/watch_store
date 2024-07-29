@@ -6,9 +6,9 @@ import 'package:watch_store_app/screens/authentication/send_otp_screen.dart';
 import 'package:watch_store_app/screens/authentication/verify_otp_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
-  ScreenNames.root: (context) => const SendOtpScreen(),
+  ScreenNames.sendOtpScreen: (context) => SendOtpScreen(),
   ScreenNames.registerScreen: (context) => const RegisterScreen(),
-  ScreenNames.verifyOtpScreen: (context) => const VerifyOtpScreen(),
-  ScreenNames.sendOtpScreen: (context) => const SendOtpScreen(),
-  ScreenNames.mainScreen: (context) =>  MainScreen()
+  ScreenNames.verifyOtpScreen: (context) =>  VerifyOtpScreen(),
+  ScreenNames.mainScreen: (context) => const MainScreen()
+  // TODO root splash screen
 };
