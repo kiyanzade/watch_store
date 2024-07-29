@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/screens/main_screen/main_screen.dart';
 import 'package:watch_store_app/screens/register_screen.dart';
-import 'package:watch_store_app/screens/send_otp_screen.dart';
-import 'package:watch_store_app/screens/verify_otp_screen.dart';
+import 'package:watch_store_app/screens/authentication/send_otp_screen.dart';
+import 'package:watch_store_app/screens/authentication/verify_otp_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   ScreenNames.root: (context) => const SendOtpScreen(),
