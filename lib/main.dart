@@ -3,16 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:watch_store_app/components/theme.dart';
 import 'package:watch_store_app/routes/routes.dart';
-import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/screens/authentication/cubit/auth_cubit.dart';
-import 'package:watch_store_app/screens/main_screen/main_screen.dart';
-import 'package:watch_store_app/screens/product_detail_screen.dart';
-import 'package:watch_store_app/screens/product_list_screen.dart';
-import 'package:watch_store_app/screens/register_screen.dart';
-import 'package:watch_store_app/screens/authentication/send_otp_screen.dart';
-import 'package:watch_store_app/screens/authentication/verify_otp_screen.dart';
 
-void main() {
+import 'package:watch_store_app/screens/authentication/send_otp_screen.dart';
+import 'package:watch_store_app/utils/shared_preferences_manager.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesManager().init();
   runApp(const MyApp());
 }
 

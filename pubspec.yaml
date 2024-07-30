@@ -19,6 +19,8 @@ dependencies:
   persian_number_utility: ^1.1.4
   flutter_bloc: ^8.1.6
   dio: ^5.5.0+1
+  flutter_timer_countdown: ^1.0.7
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

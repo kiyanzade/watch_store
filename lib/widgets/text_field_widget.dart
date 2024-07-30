@@ -5,7 +5,7 @@ import 'package:watch_store_app/res/dimens.dart';
 class TextFieldWidget extends StatelessWidget {
   final String title;
   final String hint;
-  final String? prefixTitle;
+  final Widget? prefixWidget;
   final TextAlign textAlign;
   final Icon? icon;
   final TextInputType? keyboardType;
@@ -18,7 +18,7 @@ class TextFieldWidget extends StatelessWidget {
     this.icon,
     required this.controller,
     this.keyboardType,
-    this.prefixTitle,
+    this.prefixWidget,
     this.textAlign = TextAlign.start,
   });
 
@@ -38,10 +38,7 @@ class TextFieldWidget extends StatelessWidget {
                 title,
                 style: themeData.textTheme.titleMedium,
               ),
-              Text(
-                prefixTitle ?? '',
-                style: themeData.textTheme.titleMedium,
-              ),
+              prefixWidget ?? const SizedBox.shrink(),
             ],
           ),
           AppDimens.medium.heightSizedBox,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
@@ -36,10 +37,13 @@ class VerifyOtpScreen extends StatelessWidget {
                 style: themeData.textTheme.bodyMedium,
               ),
               AppDimens.small.heightSizedBox,
-              Text(
-                AppStrings.wrongNumberEditNumber,
-                style: themeData.textTheme.bodyMedium!
-                    .copyWith(color: AppColors.primaryColor),
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Text(
+                  AppStrings.wrongNumberEditNumber,
+                  style: themeData.textTheme.bodyMedium!
+                      .copyWith(color: AppColors.primaryColor),
+                ),
               ),
               AppDimens.large.heightSizedBox,
               TextFieldWidget(
@@ -47,7 +51,25 @@ class VerifyOtpScreen extends StatelessWidget {
                 hint: AppStrings.hintVerificationCode,
                 title: AppStrings.enterVerificationCode,
                 keyboardType: TextInputType.number,
-                prefixTitle: '2:32',
+                prefixWidget: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: TimerCountdown(
+                    format: CountDownTimerFormat.minutesSeconds,
+                    enableDescriptions: false,
+                    spacerWidth: 1,
+                    timeTextStyle: themeData.textTheme.bodyMedium!
+                        .copyWith(color: AppColors.primaryColor),
+                    endTime: DateTime.now().add(
+                      const Duration(
+                        minutes: 2,
+                        seconds: 0,
+                      ),
+                    ),
+                    onEnd: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
                 textAlign: TextAlign.center,
               ),
               AppDimens.large.heightSizedBox,

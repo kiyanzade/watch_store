@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:watch_store_app/data/constants.dart';
+import 'package:watch_store_app/utils/shared_preferences_manager.dart';
 
 part 'auth_state.dart';
 
@@ -36,9 +37,11 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _dio.post('${baseUrl}check_sms_code',
           data: {'mobile': phoneNumber, 'code': code}).then(
-        (value) {
+        (value) async {
           debugPrint(value.toString());
           if (value.statusCode == 201) {
+            await SharedPreferencesManager()
+                .saveString('token', value.data['data']['token']);
             if (value.data['data']['is_registered']) {
               emit(AuthVerifiedRegisteredCodeState());
             } else {
