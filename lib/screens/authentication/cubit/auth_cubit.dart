@@ -26,7 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
                 error: value.statusMessage ?? 'خطا رخ داده است.'));
           }
         },
-      );
+      ).timeout(const Duration(seconds: 30,),onTimeout: () {
+        emit(AuthErrorState(
+                error: 'timeout'));
+      },);
     } catch (e) {
       emit(AuthErrorState(error: 'خطای غیر منتظره رخ داده است!'));
     }

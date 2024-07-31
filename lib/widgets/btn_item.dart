@@ -8,9 +8,9 @@ class BtmNavActiveItem extends StatelessWidget {
   final String iconPath;
   final String label;
   final bool isActive;
-  void Function() onTap;
+ final void Function() onTap;
 
-   BtmNavActiveItem(
+   const BtmNavActiveItem(
       {super.key,
       required this.iconPath,
       required this.label,

@@ -21,6 +21,9 @@ dependencies:
   dio: ^5.5.0+1
   flutter_timer_countdown: ^1.0.7
   shared_preferences: ^2.2.3
+  image_cropper: ^7.1.0
+  image_picker: ^1.1.2
+  flutter_osm_plugin: ^1.2.0
 
 dev_dependencies:
   flutter_test:

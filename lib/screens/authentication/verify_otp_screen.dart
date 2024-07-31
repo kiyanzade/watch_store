@@ -54,6 +54,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 prefixWidget: Directionality(
                   textDirection: TextDirection.ltr,
                   child: TimerCountdown(
+                    
                     format: CountDownTimerFormat.minutesSeconds,
                     enableDescriptions: false,
                     spacerWidth: 1,
@@ -66,7 +67,7 @@ class VerifyOtpScreen extends StatelessWidget {
                       ),
                     ),
                     onEnd: () {
-                      Navigator.of(context).pop();
+                      // Navigator.of(context).pop();
                     },
                   ),
                 ),

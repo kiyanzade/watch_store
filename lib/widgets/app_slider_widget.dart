@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:watch_store_app/res/dimens.dart';
 
 final List<String> imgs = [
-  'https://1car.ir/thumbnails/mark/1Car.ir-Benz-Watch(1).jpg',
-  'https://techrato.com/wp-content/uploads/2023/09/rsz_mbpassionde-amg-iwc-schaffhausen-praesentieren-big-pilots-watch-amg-g-63-1600-6.jpg',
-  'https://1car.ir/thumbnails/mark/1Car.ir-Benz-Watch(1).jpg',
-  'https://techrato.com/wp-content/uploads/2023/09/rsz_mbpassionde-amg-iwc-schaffhausen-praesentieren-big-pilots-watch-amg-g-63-1600-6.jpg',
+  'https://ttbol.ir/wp-content/uploads/2020/07/New-Bitmap-Image-copy-1-Copy-1.jpg',
+  'https://ttbol.ir/wp-content/uploads/2020/07/New-Bitmap-Image-copy-1-Copy-1.jpg',
+  'https://ttbol.ir/wp-content/uploads/2020/07/New-Bitmap-Image-copy-1-Copy-1.jpg',
+  'https://ttbol.ir/wp-content/uploads/2020/07/New-Bitmap-Image-copy-1-Copy-1.jpg',
+
 ];
 
 class AppSliderWidget extends StatefulWidget {

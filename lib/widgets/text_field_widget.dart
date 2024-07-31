@@ -7,7 +7,10 @@ class TextFieldWidget extends StatelessWidget {
   final String hint;
   final Widget? prefixWidget;
   final TextAlign textAlign;
+  final Function()? onTap;
   final Icon? icon;
+  final bool? enabled;
+  final bool? readOnly;
   final TextInputType? keyboardType;
   final TextEditingController controller;
 
@@ -20,6 +23,7 @@ class TextFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.prefixWidget,
     this.textAlign = TextAlign.start,
+    this.onTap, this.enabled, this.readOnly,
   });
 
   @override
@@ -45,6 +49,9 @@ class TextFieldWidget extends StatelessWidget {
           SizedBox(
             height: size.height * 0.07,
             child: TextField(
+              onTap: onTap,
+              readOnly: readOnly??false,
+              enabled: enabled,
               controller: controller,
               keyboardType: keyboardType,
               textAlign: textAlign,
