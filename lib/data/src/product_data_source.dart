@@ -3,10 +3,12 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:watch_store_app/data/constants.dart';
+import 'package:watch_store_app/data/model/product_detail_model.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/utils/response_validator.dart';
 
 abstract class IProductDataSource {
+  Future<ProductDetailModel> getProductDetail(int id);
   Future<List<ProductModel>> getAllByCategory(int id);
   Future<List<ProductModel>> getAllByBrand(int id);
   Future<List<ProductModel>> getSorted(String routeParam);
@@ -41,7 +43,8 @@ class RemoteProductDataSource extends IProductDataSource {
 
     for (var elemnt
         in (response.data['products_by_category']['data'] as List)) {
-      products.add(productModelFromJson(json.encode(elemnt))); // TODO fix fromJson in model
+      products.add(productModelFromJson(
+          json.encode(elemnt))); // TODO fix fromJson in model
     }
 
     return products;
@@ -73,5 +76,15 @@ class RemoteProductDataSource extends IProductDataSource {
     }
 
     return products;
+  }
+
+  @override
+  Future<ProductDetailModel> getProductDetail(int id) async {
+    ProductDetailModel productDetail;
+    final Response<String> response =
+        await httpClient.get('${baseUrl}product_details/$id');
+    HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
+    productDetail = productDetailFromJson(response.data!);
+    return productDetail;
   }
 }

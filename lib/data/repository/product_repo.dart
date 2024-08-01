@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:watch_store_app/data/model/product_detail_model.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/data/src/product_data_source.dart';
 
@@ -6,6 +7,8 @@ final IProductRepo productRepository =
     ProductRepository(RemoteProductDataSource(httpClient: Dio()));
 
 abstract class IProductRepo {
+  Future<ProductDetailModel> getProductDetail(int id);
+
   Future<List<ProductModel>> getAllByCategory(int id);
   Future<List<ProductModel>> getAllByBrand(int id);
   Future<List<ProductModel>> getSorted(String routeParam);
@@ -31,4 +34,8 @@ class ProductRepository extends IProductRepo {
   @override
   Future<List<ProductModel>> searchProducts(String searchKey) async =>
       await _productDataSource.searchProducts(searchKey);
+
+  @override
+  Future<ProductDetailModel> getProductDetail(int id) async =>
+      await _productDataSource.getProductDetail(id);
 }
