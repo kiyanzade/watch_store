@@ -14,6 +14,7 @@ class ProductDetailScreen extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: customAppBarWidget(
+        context: context,
         title: const Text('نام محصول'),
       ),
       body: Column(

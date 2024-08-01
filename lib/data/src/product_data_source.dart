@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
@@ -40,7 +41,7 @@ class RemoteProductDataSource extends IProductDataSource {
 
     for (var elemnt
         in (response.data['products_by_category']['data'] as List)) {
-      products.add(productModelFromJson(elemnt));
+      products.add(productModelFromJson(json.encode(elemnt))); // TODO fix fromJson in model
     }
 
     return products;

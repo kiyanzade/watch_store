@@ -3,7 +3,6 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
-import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 
@@ -36,17 +35,18 @@ class ProductWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Align(
-                alignment: Alignment.center,
-                child: Image.asset(Assets.images.unnamed.path)),
+          Align(
+            alignment: Alignment.center,
+            child: Image.network(productModel.image,height: 100,),
           ),
           AppDimens.medium.heightSizedBox,
-          Text(
-            productModel.title,
-            style: themeData.textTheme.titleLarge,
+          Expanded(
+            child: Text(
+              productModel.title,
+              style: themeData.textTheme.titleLarge,
+            ),
           ),
-          AppDimens.large.heightSizedBox,
+         
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -72,7 +72,7 @@ class ProductWidget extends StatelessWidget {
                   Text(
                       '${productModel.discountPrice.toString().seRagham()} تومان'),
                   Visibility(
-                    visible: productModel.price != 0,
+                    visible: productModel.discount != 0,
                     child: Text(
                       productModel.price.toString().seRagham(),
                       style: themeData.textTheme.titleMedium!.copyWith(
@@ -86,7 +86,7 @@ class ProductWidget extends StatelessWidget {
           ),
           AppDimens.medium.heightSizedBox,
           Visibility(
-            visible: expireTime.inSeconds != 0,
+            visible: productModel.discount != 0,
             child: Column(
               children: [
                 const Divider(

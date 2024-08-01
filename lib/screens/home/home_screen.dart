@@ -5,11 +5,15 @@ import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/data/model/home_model.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/data/repository/home_repo.dart';
+import 'package:watch_store_app/data/repository/product_repo.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
+import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/screens/home/bloc/home_bloc.dart';
+import 'package:watch_store_app/screens/product_list/bloc/product_list_bloc.dart';
+import 'package:watch_store_app/screens/product_list/product_list_screen.dart';
 import 'package:watch_store_app/widgets/app_slider_widget.dart';
 import 'package:watch_store_app/widgets/cat_widget.dart';
 import 'package:watch_store_app/widgets/product_item_widget.dart';
@@ -53,7 +57,21 @@ class HomeScreen extends StatelessWidget {
                           List<Color> colors = AppColors.catColors[index % 4];
                           return CatWidget(
                               colors: colors,
-                              ontap: () {},
+                              ontap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        ProductListBloc(productRepository)
+                                          ..add(
+                                            ProductListInitialEvent(
+                                              categoryData.id,
+                                            ),
+                                          ),
+                                    child: ProductListScreen(
+                                        title: categoryData.title),
+                                  ),
+                                ));
+                              },
                               title: categoryData.title,
                               iconPath: categoryData.image);
                         },

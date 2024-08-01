@@ -9,6 +9,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   ScreenNames.sendOtpScreen: (context) => SendOtpScreen(),
   ScreenNames.registerScreen: (context) => const RegisterScreen(),
   ScreenNames.verifyOtpScreen: (context) =>  VerifyOtpScreen(),
-  ScreenNames.mainScreen: (context) => const MainScreen()
+  ScreenNames.mainScreen: (context) => const MainScreen(),
   // TODO root splash screen
 };

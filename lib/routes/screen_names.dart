@@ -6,4 +6,5 @@ class ScreenNames {
   static const String verifyOtpScreen = '/verifyOtpScreen';
   static const String registerScreen = '/registerScreen';
   static const String mainScreen = '/mainScreen';
+  static const String productList = '/productList';
 }

@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/data/src/product_data_source.dart';
+
+final IProductRepo productRepository =
+    ProductRepository(RemoteProductDataSource(httpClient: Dio()));
 
 abstract class IProductRepo {
   Future<List<ProductModel>> getAllByCategory(int id);

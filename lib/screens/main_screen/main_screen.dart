@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/strings.dart';
@@ -40,9 +41,30 @@ class _MainScreenState extends State<MainScreen> {
       });
     } else {
       showDialog(
-        context: context,
-        builder: (context) => const Text("end"),
-      );
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('خروج از برنامه'),
+          content: const Text('آیا از خروج از برنامه، اطمینان دارید؟'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('لغو'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Close the app
+                SystemNavigator.pop();
+              },
+              child: const Text('خروج'),
+            ),
+          ],
+        );
+      },
+    );
     }
     return false;
   }

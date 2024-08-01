@@ -21,14 +21,15 @@ AppBar appBarWidget(
 }
 
 AppBar customAppBarWidget({
-  required Widget title,
+  required Widget title,required BuildContext context
 }) {
   return AppBar(
     actions: const [
       CartBadge(count: 2,),
     ],
     leading: IconButton(
-      onPressed: () {},
+      onPressed: () {
+      Navigator.pop(context);},
       icon: SvgPicture.asset(Assets.images.close),
     ),
     title: title,
