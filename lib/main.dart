@@ -6,6 +6,7 @@ import 'package:watch_store_app/routes/routes.dart';
 import 'package:watch_store_app/screens/authentication/cubit/auth_cubit.dart';
 
 import 'package:watch_store_app/screens/authentication/send_otp_screen.dart';
+import 'package:watch_store_app/screens/main_screen/main_screen.dart';
 import 'package:watch_store_app/utils/shared_preferences_manager.dart';
 
 Future<void> main() async {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: lightThemeData,
         // initialRoute: ScreenNames.root,
         routes: routes,
-        home: SendOtpScreen(),
+        home: const MainScreen(),
 
         //  BlocBuilder<AuthCubit, AuthState>(
         //   builder: (context, state) {

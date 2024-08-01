@@ -6,21 +6,18 @@ class AppColors {
     Color.fromARGB(255, 238, 238, 238),
     Color.fromARGB(255, 255, 255, 255)
   ];
-  static const List<Color> catClasicColors = [
-    Color.fromARGB(255, 255, 166, 114),
-    Color.fromARGB(255, 255, 227, 200)
-  ];
-  static const List<Color> catSmartColors = [
-    Color.fromARGB(255, 139, 162, 168),
-    Color.fromARGB(255, 223, 238, 245)
-  ];
-  static const List<Color> catDigitalColors = [
-    Color(0xFFE183D4),
-    Color(0xFFFFE6F5),
-  ];
-  static const List<Color> catDesktopColors = [
-    Color(0xFF8396E1),
-    Color(0xFFE6FCFF),
+
+  static const List<List<Color>> catColors = [
+    [Color.fromARGB(255, 255, 166, 114), Color.fromARGB(255, 255, 227, 200)],
+    [Color.fromARGB(255, 139, 162, 168), Color.fromARGB(255, 223, 238, 245)],
+    [
+      Color(0xFFE183D4),
+      Color(0xFFFFE6F5),
+    ],
+    [
+      Color(0xFF8396E1),
+      Color(0xFFE6FCFF),
+    ],
   ];
 
   static const Color mainBg = Colors.white;

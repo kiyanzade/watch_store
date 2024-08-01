@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:watch_store_app/components/extensions.dart';
+import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/widgets/app_bar_widget.dart';
@@ -26,20 +27,20 @@ class ProductListScreen extends StatelessWidget {
         children: [
           AppDimens.medium.heightSizedBox,
           const TagList(),
-          Expanded(
-            child: GridView.builder(
-              itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4,
-                childAspectRatio: 0.7,
-              ),
-              itemBuilder: (context, index) {
-                return const ProductWidget(
-                    productName: "ساعت", price: "5465000");
-              },
-            ),
-          )
+          // Expanded(
+          //   child: GridView.builder(
+          //     itemCount: 10,
+          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2,
+          //       crossAxisSpacing: 4,
+          //       childAspectRatio: 0.7,
+          //     ),
+          //     itemBuilder: (context, index) {
+          //       return const ProductWidget(productModel: null,
+          //           );
+          //     },
+          //   ),
+          // )
         ],
       ),
     );

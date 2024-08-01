@@ -29,15 +29,16 @@ class CatWidget extends StatelessWidget {
             height: size.height * .1,
             width: size.height * .1,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: colors),
-                borderRadius: BorderRadius.circular(AppDimens.large)),
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: colors),
+              borderRadius: BorderRadius.circular(AppDimens.large),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 60, child: SvgPicture.asset(iconPath)),
+                SizedBox(height: 60, child: Image.network(iconPath)),
               ],
             ),
           ),

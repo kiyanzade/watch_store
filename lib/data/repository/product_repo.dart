@@ -14,17 +14,17 @@ class ProductRepository extends IProductRepo {
   ProductRepository(this._productDataSource);
 
   @override
-  Future<List<ProductModel>> getAllByBrand(int id) =>
-      _productDataSource.getAllByBrand(id);
+  Future<List<ProductModel>> getAllByBrand(int id) async =>
+      await _productDataSource.getAllByBrand(id);
 
   @override
-  Future<List<ProductModel>> getAllByCategory(int id) =>
-      _productDataSource.getAllByCategory(id);
+  Future<List<ProductModel>> getAllByCategory(int id) async =>
+      await _productDataSource.getAllByCategory(id);
 
   @override
-  Future<List<ProductModel>> getSorted(String routeParam) =>
-      _productDataSource.getSorted(routeParam);
+  Future<List<ProductModel>> getSorted(String routeParam) async =>
+      await _productDataSource.getSorted(routeParam);
   @override
-  Future<List<ProductModel>> searchProducts(String searchKey) =>
-      _productDataSource.searchProducts(searchKey);
+  Future<List<ProductModel>> searchProducts(String searchKey) async =>
+      await _productDataSource.searchProducts(searchKey);
 }

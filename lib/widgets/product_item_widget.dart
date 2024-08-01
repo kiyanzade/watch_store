@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:watch_store_app/components/extensions.dart';
+import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 
 class ProductWidget extends StatelessWidget {
-  final String productName;
-  final String price;
-  final String oldPrice;
-  final int discount;
-  final int time;
+  final ProductModel productModel;
   const ProductWidget({
     super.key,
-    this.discount = 0,
-    required this.productName,
-    required this.price,
-    this.time = 0,
-    this.oldPrice = '0',
+    required this.productModel,
   });
 
   @override
   Widget build(BuildContext context) {
+    final Duration expireTime = DateTime.now()
+        .difference(DateTime.parse(productModel.specialExpiration))
+        .abs();
     final ThemeData themeData = Theme.of(context);
     return Container(
       width: 200,
@@ -46,7 +43,7 @@ class ProductWidget extends StatelessWidget {
           ),
           AppDimens.medium.heightSizedBox,
           Text(
-            productName,
+            productModel.title,
             style: themeData.textTheme.titleLarge,
           ),
           AppDimens.large.heightSizedBox,
@@ -54,7 +51,7 @@ class ProductWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Visibility(
-                visible: discount != 0,
+                visible: productModel.discount != 0,
                 child: Container(
                   width: 50,
                   height: 25,
@@ -64,7 +61,7 @@ class ProductWidget extends StatelessWidget {
                     color: Colors.red,
                   ),
                   child: Text(
-                    '$discount %',
+                    '${productModel.discount} %',
                     style: themeData.textTheme.labelMedium,
                   ),
                 ),
@@ -72,11 +69,12 @@ class ProductWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('${price.seRagham()} تومان'),
+                  Text(
+                      '${productModel.discountPrice.toString().seRagham()} تومان'),
                   Visibility(
-                    visible: oldPrice != '0',
+                    visible: productModel.price != 0,
                     child: Text(
-                      oldPrice.seRagham(),
+                      productModel.price.toString().seRagham(),
                       style: themeData.textTheme.titleMedium!.copyWith(
                           color: Colors.black54,
                           decoration: TextDecoration.lineThrough),
@@ -88,15 +86,24 @@ class ProductWidget extends StatelessWidget {
           ),
           AppDimens.medium.heightSizedBox,
           Visibility(
-            visible: time != 0,
+            visible: expireTime.inSeconds != 0,
             child: Column(
               children: [
                 const Divider(
                   color: AppColors.primaryColor,
                 ),
-                Text(
-                  time.toString(),
-                  style: themeData.textTheme.headlineMedium,
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: TimerCountdown(
+                    spacerWidth: 1,
+                    enableDescriptions: false,
+                    format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                    timeTextStyle: themeData.textTheme.headlineMedium!
+                        .copyWith(fontSize: 14),
+                    colonsTextStyle: themeData.textTheme.headlineMedium!
+                        .copyWith(fontSize: 14),
+                    endTime: DateTime.now().add(expireTime),
+                  ),
                 ),
               ],
             ),

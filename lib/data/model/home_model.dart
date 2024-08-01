@@ -6,7 +6,6 @@ import 'package:watch_store_app/data/model/product_model.dart';
 
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 
-String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 
 class HomeModel {
     HomeData data;
@@ -19,13 +18,11 @@ class HomeModel {
         data: HomeData.fromJson(json["data"]),
     );
 
-    Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
-    };
+   
 }
 
 class HomeData {
-    List<CategorySlideModel> sliders;
+    List<CategorySlideModel> slides;
     List<CategorySlideModel> categories;
     List<ProductModel> amazingProducts;
     Banner banner;
@@ -33,7 +30,7 @@ class HomeData {
     List<ProductModel> newestProducts;
 
     HomeData({
-        required this.sliders,
+        required this.slides,
         required this.categories,
         required this.amazingProducts,
         required this.banner,
@@ -42,7 +39,7 @@ class HomeData {
     });
 
     factory HomeData.fromJson(Map<String, dynamic> json) => HomeData(
-        sliders: List<CategorySlideModel>.from(json["sliders"].map((x) => CategorySlideModel.fromJson(x))),
+        slides: List<CategorySlideModel>.from(json["sliders"].map((x) => CategorySlideModel.fromJson(x))),
         categories: List<CategorySlideModel>.from(json["categories"].map((x) => CategorySlideModel.fromJson(x))),
         amazingProducts: List<ProductModel>.from(json["amazing_products"].map((x) => ProductModel.fromJson(x))),
         banner: Banner.fromJson(json["banner"]),
@@ -50,14 +47,6 @@ class HomeData {
         newestProducts: List<ProductModel>.from(json["newest_products"].map((x) => ProductModel.fromJson(x))),
     );
 
-    Map<String, dynamic> toJson() => {
-        "sliders": List<dynamic>.from(sliders.map((x) => x.toJson())),
-        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-        "amazing_products": List<dynamic>.from(amazingProducts.map((x) => x.toJson())),
-        "banner": banner.toJson(),
-        "most_seller_products": List<dynamic>.from(mostSellerProducts.map((x) => x.toJson())),
-        "newest_products": List<dynamic>.from(newestProducts.map((x) => x.toJson())),
-    };
 }
 
 
