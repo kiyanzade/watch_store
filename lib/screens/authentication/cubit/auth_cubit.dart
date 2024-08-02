@@ -9,7 +9,12 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState()) {
-    emit(AuthLoggedOutState());
+    final String? token = SharedPreferencesManager().getString('token');
+    if (token == null) {
+      emit(AuthLoggedOutState());
+    }else{
+      emit(AuthLoggedInState());
+    }
   }
   final Dio _dio = Dio();
 
@@ -26,10 +31,14 @@ class AuthCubit extends Cubit<AuthState> {
                 error: value.statusMessage ?? 'خطا رخ داده است.'));
           }
         },
-      ).timeout(const Duration(seconds: 30,),onTimeout: () {
-        emit(AuthErrorState(
-                error: 'timeout'));
-      },);
+      ).timeout(
+        const Duration(
+          seconds: 30,
+        ),
+        onTimeout: () {
+          emit(AuthErrorState(error: 'timeout'));
+        },
+      );
     } catch (e) {
       emit(AuthErrorState(error: 'خطای غیر منتظره رخ داده است!'));
     }

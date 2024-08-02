@@ -41,5 +41,6 @@ class AppColors {
   static const Color btmNavInActiveItem = Color.fromARGB(255, 196, 196, 196);
   static const Color amazingColor = Color.fromARGB(255, 57, 24, 80);
   static const Color success = Colors.green;
+  static const Color faile = Colors.red;
   static const Color onSuccess = Colors.white;
 }

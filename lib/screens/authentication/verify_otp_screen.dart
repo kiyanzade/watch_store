@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:watch_store_app/components/extensions.dart';
+import 'package:watch_store_app/data/repository/cart_repo.dart';
 import 'package:watch_store_app/gen/assets.gen.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
 import 'package:watch_store_app/routes/screen_names.dart';
 import 'package:watch_store_app/screens/authentication/cubit/auth_cubit.dart';
+import 'package:watch_store_app/screens/cart/bloc/cart_bloc.dart';
+import 'package:watch_store_app/screens/main_screen/main_screen.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
 import 'package:watch_store_app/widgets/text_field_widget.dart';
 
@@ -54,7 +57,6 @@ class VerifyOtpScreen extends StatelessWidget {
                 prefixWidget: Directionality(
                   textDirection: TextDirection.ltr,
                   child: TimerCountdown(
-                    
                     format: CountDownTimerFormat.minutesSeconds,
                     enableDescriptions: false,
                     spacerWidth: 1,
@@ -77,7 +79,13 @@ class VerifyOtpScreen extends StatelessWidget {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthVerifiedRegisteredCodeState) {
-                    Navigator.of(context).pushNamed(ScreenNames.mainScreen);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) =>
+                            CartBloc(cartRepository)..add(CartInitialEvent()),
+                        child: const MainScreen(),
+                      ),
+                    ));
                   } else if (state is AuthVerifiedNotRegisteredCodeState) {
                     Navigator.of(context).pushNamed(ScreenNames.registerScreen);
                   }

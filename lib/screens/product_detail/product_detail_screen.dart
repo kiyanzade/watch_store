@@ -6,6 +6,7 @@ import 'package:watch_store_app/data/model/product_detail_model.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
 import 'package:watch_store_app/res/strings.dart';
+import 'package:watch_store_app/screens/cart/bloc/cart_bloc.dart';
 import 'package:watch_store_app/screens/product_detail/bloc/product_detail_bloc.dart';
 import 'package:watch_store_app/widgets/app_bar_widget.dart';
 import 'package:watch_store_app/widgets/elevated_buttom_widget.dart';
@@ -15,12 +16,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.sizeOf(context);
     final ThemeData themeData = Theme.of(context);
-    return BlocConsumer<ProductDetailBloc, ProductDetailState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<ProductDetailBloc, ProductDetailState>(
       builder: (context, state) {
         if (state is ProductDetailLoadingState) {
           return const Center(child: CircularProgressIndicator());
@@ -32,10 +29,45 @@ class ProductDetailScreen extends StatelessWidget {
               context: context,
               title: Text(state.productDetail.data.title),
             ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.fromLTRB(24,0,24,8),
-              child: ElevatedButtomWidget(
-                  title: const Text(AppStrings.addToBasket), onPressed: () {}),
+            bottomNavigationBar: BlocConsumer<CartBloc, CartState>(
+              listener: (cartContext, cartState) {
+                if (cartState is CartAddedState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.success,
+                      content: Text(
+                        "محصول با موفقیت به سبد خرید اضافه شد.",
+                        style: themeData.textTheme.labelMedium,
+                      ),
+                    ),
+                  );
+                } else if (cartState is CartErrorState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.faile,
+                      content: Text(
+                        cartState.errorMessage,
+                        style: themeData.textTheme.labelMedium,
+                      ),
+                    ),
+                  );
+                }
+              },
+              builder: (cartContext, cartState) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                  child: ElevatedButtomWidget(
+                      title: (cartState is CartLoadingState)
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(AppStrings.addToBasket),
+                      onPressed: () {
+                        BlocProvider.of<CartBloc>(context).add(
+                            CartAddToCartEvent(state.productDetail.data.id));
+                      }),
+                );
+              },
             ),
             body: SingleChildScrollView(
               child: Column(

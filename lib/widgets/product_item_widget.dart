@@ -4,9 +4,11 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
+import 'package:watch_store_app/data/repository/cart_repo.dart';
 import 'package:watch_store_app/data/repository/product_repo.dart';
 import 'package:watch_store_app/res/colors.dart';
 import 'package:watch_store_app/res/dimens.dart';
+import 'package:watch_store_app/screens/cart/bloc/cart_bloc.dart';
 import 'package:watch_store_app/screens/product_detail/bloc/product_detail_bloc.dart';
 import 'package:watch_store_app/screens/product_detail/product_detail_screen.dart';
 
