@@ -1,3 +1,6 @@
+// To parse this JSON data, do
+//
+//     final productDetail = productDetailFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -37,6 +40,7 @@ class ProductDetailData {
     List<Property> properties;
     String description;
     String discussion;
+    List<Comment> comments;
 
     ProductDetailData({
         required this.id,
@@ -57,6 +61,7 @@ class ProductDetailData {
         required this.properties,
         required this.description,
         required this.discussion,
+        required this.comments,
     });
 
     factory ProductDetailData.fromJson(Map<String, dynamic> json) => ProductDetailData(
@@ -78,6 +83,7 @@ class ProductDetailData {
         properties: List<Property>.from(json["properties"].map((x) => Property.fromJson(x))),
         description: json["description"],
         discussion: json["discussion"],
+        comments: List<Comment>.from(json["comments"].map((x) => Comment.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -99,6 +105,7 @@ class ProductDetailData {
         "properties": List<dynamic>.from(properties.map((x) => x.toJson())),
         "description": description,
         "discussion": discussion,
+        "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
     };
 }
 
@@ -119,6 +126,26 @@ class Color {
     Map<String, dynamic> toJson() => {
         "title": title,
         "code": code,
+    };
+}
+
+class Comment {
+    String user;
+    String body;
+
+    Comment({
+        required this.user,
+        required this.body,
+    });
+
+    factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+        user: json["user"],
+        body: json["body"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user": user,
+        "body": body,
     };
 }
 

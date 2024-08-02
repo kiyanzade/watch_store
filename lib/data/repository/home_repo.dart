@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
+import 'package:watch_store_app/data/config/remote_config.dart';
 import 'package:watch_store_app/data/model/home_model.dart';
 import 'package:watch_store_app/data/src/home_data_source.dart';
 
 final IHomeRepository homeRepository =
-    HomeRepository(RemoteHomeDataSource(Dio()));
+    HomeRepository(RemoteHomeDataSource(DioManager.dio));
 
 abstract class IHomeRepository {
   Future<HomeModel> getHomeData();

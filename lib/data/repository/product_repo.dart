@@ -1,10 +1,10 @@
-import 'package:dio/dio.dart';
+import 'package:watch_store_app/data/config/remote_config.dart';
 import 'package:watch_store_app/data/model/product_detail_model.dart';
 import 'package:watch_store_app/data/model/product_model.dart';
 import 'package:watch_store_app/data/src/product_data_source.dart';
 
 final IProductRepo productRepository =
-    ProductRepository(RemoteProductDataSource(httpClient: Dio()));
+    ProductRepository(RemoteProductDataSource(httpClient: DioManager.dio));
 
 abstract class IProductRepo {
   Future<ProductDetailModel> getProductDetail(int id);
