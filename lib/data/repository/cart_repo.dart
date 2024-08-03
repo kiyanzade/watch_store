@@ -7,6 +7,7 @@ final ICartRepository cartRepository =
 
 abstract class ICartRepository {
   Future<CartModel> getUserCart();
+  Future<String> cartPayment();
   Future<CartModel> addToCart(int productId);
   Future<CartModel> removeFromCart(int productId);
   Future<CartModel> deleteFromCart(int productId);
@@ -30,4 +31,7 @@ class CartRepository extends ICartRepository {
   @override
   Future<CartModel> removeFromCart(int productId) async =>
       await dataSource.removeFromCart(productId);
+
+  @override
+  Future<String> cartPayment() async => await dataSource.cartPayment();
 }

@@ -28,8 +28,8 @@ class _ShoppingCartItemWidgetState extends State<ShoppingCartItemWidget> {
     return SurfaceContainer(
         child: Row(
       children: [
-        Image.asset(
-          Assets.images.unnamed.path,
+        Image.network(
+          widget.cartItem.image,
           height: 110,
         ),
         Expanded(
@@ -42,13 +42,13 @@ class _ShoppingCartItemWidgetState extends State<ShoppingCartItemWidget> {
               ),
               4.heightSizedBox,
               Text(
-                "قیمت  : ${'45000'.toString().seRagham()} تومان",
+                "قیمت  : ${widget.cartItem.price.toString().seRagham()} تومان",
                 style: themeData.textTheme.titleMedium,
               ),
               Visibility(
-                visible: true,
+                visible:  widget.cartItem.discount!=0,
                 child: Text(
-                  "با تخفیف: ${'125000'.toString().seRagham()}  تومان",
+                  "با تخفیف: ${widget.cartItem.discountPrice.toString().seRagham()}  تومان",
                   style: themeData.textTheme.headlineMedium,
                 ),
               ),

@@ -8,6 +8,7 @@ sealed class CartEvent extends Equatable {
 }
 
 final class CartInitialEvent extends CartEvent {}
+final class CartPaymentEvent extends CartEvent {}
 
 final class CartAddToCartEvent extends CartEvent {
   final int productId;

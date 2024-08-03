@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:watch_store_app/components/extensions.dart';
 import 'package:watch_store_app/data/model/cart_model.dart';
 import 'package:watch_store_app/data/model/cart_model.dart';
@@ -123,64 +125,68 @@ class CartScreen extends StatelessWidget {
                       );
                     },
                   );
+                } else if (state is CartPaymentSuccessUrlState) {
+                   BlocProvider.of<CartBloc>(context).add(CartInitialEvent()); 
+                   return const SizedBox();
                 } else {
-                  return ElevatedButtomWidget(
-                    title: const Text("تلاش مجدد"),
-                    onPressed: () => BlocProvider.of<CartBloc>(context)
-                        .add(CartInitialEvent()),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(AppDimens.medium),
-            color: Colors.grey.withOpacity(0.009),
-            // height: size.height * 0.08,
-            width: size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "ادامه فرایند خرید",
-                    style: themeData.textTheme.labelMedium,
+          BlocConsumer<CartBloc, CartState>(
+            listener: (context, state) async {
+              if (state is CartPaymentSuccessUrlState) {
+                if (!await launchUrl(Uri.parse(state.paymentUrl))) {
+                  throw Exception('could not launch ${state.paymentUrl}');
+                }
+              }
+            },
+            builder: (context, state) {
+              CartModel? cart;
+              switch (state.runtimeType) {
+                case CartSuccessLoadState:
+                case CartAddedState:
+                case CartDeletedState:
+                case CartRemovedState:
+                  cart = (state as dynamic).cartModel;
+                  break;
+                case CartErrorState:
+                  return Text((state as CartErrorState).errorMessage);
+                case CartLoadingState:
+                  return const LinearProgressIndicator();
+                default:
+                  return const SizedBox.shrink();
+              }
+              return Visibility(
+                visible: cart!.data.cartTotalPrice > 0,
+                child: Container(
+                  padding: const EdgeInsets.all(AppDimens.medium),
+                  color: Colors.grey.withOpacity(0.009),
+                  // height: size.height * 0.08,
+                  width: size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          BlocProvider.of<CartBloc>(context)
+                              .add(CartPaymentEvent());
+                        },
+                        child: Text(
+                          "ادامه فرایند خرید",
+                          style: themeData.textTheme.labelMedium,
+                        ),
+                      ),
+                      Text(
+                        "مجموع: ${cart.data.cartTotalPrice.toString().seRagham()} تومان",
+                        style: themeData.textTheme.titleLarge,
+                      )
+                    ],
                   ),
                 ),
-                BlocBuilder<CartBloc, CartState>(
-                  builder: (context, state) {
-                    if (state is CartLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is CartErrorState) {
-                      return Text(state.errorMessage);
-                    } else if (state is CartSuccessLoadState) {
-                      return Text(
-                        "مجموع: ${state.cartModel.data.cartTotalPrice.toString().seRagham()} تومان",
-                        style: themeData.textTheme.titleLarge,
-                      );
-                    } else if (state is CartAddedState) {
-                      return Text(
-                        "مجموع: ${state.cartModel.data.cartTotalPrice.toString().seRagham()} تومان",
-                        style: themeData.textTheme.titleLarge,
-                      );
-                    } else if (state is CartDeletedState) {
-                      return Text(
-                        "مجموع: ${state.cartModel.data.cartTotalPrice.toString().seRagham()} تومان",
-                        style: themeData.textTheme.titleLarge,
-                      );
-                    } else if (state is CartRemovedState) {
-                      return Text(
-                        "مجموع: ${state.cartModel.data.cartTotalPrice.toString().seRagham()} تومان",
-                        style: themeData.textTheme.titleLarge,
-                      );
-                    } else {
-                      return const Text('');
-                    }
-                  },
-                ),
-              ],
-            ),
+              );
+            },
           )
         ],
       ),

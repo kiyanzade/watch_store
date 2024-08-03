@@ -5,12 +5,17 @@ sealed class CartState extends Equatable {
 
   @override
   List<Object> get props => [];
-
 }
 
 final class CartInitialState extends CartState {}
 
 final class CartLoadingState extends CartState {}
+
+final class CartPaymentSuccessUrlState extends CartState {
+  final String paymentUrl;
+
+  const CartPaymentSuccessUrlState(this.paymentUrl);
+}
 
 final class CartErrorState extends CartState {
   final String errorMessage;
@@ -35,7 +40,6 @@ final class CartRemovedState extends CartState {
   const CartRemovedState(this.cartModel);
   @override
   List<Object> get props => [cartModel];
-  
 }
 
 final class CartDeletedState extends CartState {

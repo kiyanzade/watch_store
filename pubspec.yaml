@@ -26,6 +26,7 @@ dependencies:
   flutter_osm_plugin: ^1.2.0
   equatable: ^2.0.5
   flutter_widget_from_html: ^0.15.1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,8 @@ import 'package:watch_store_app/utils/response_validator.dart';
 
 abstract class ICartDataSource {
   Future<CartModel> getUserCart();
+  Future<String> cartPayment();
+
   Future<CartModel> addToCart(int productId);
   Future<CartModel> removeFromCart(int productId);
   Future<CartModel> deleteFromCart(int productId);
@@ -16,29 +18,29 @@ class CartRemoteDataSource extends ICartDataSource {
   CartRemoteDataSource(this.httpClient);
   @override
   Future<CartModel> addToCart(int productId) async {
-     final CartModel cart;
+    final CartModel cart;
     final Response<String> response = await httpClient
         .post('${baseUrl}add_to_cart', data: {'product_id': productId});
     HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
-       cart = cartModelFromJson(response.data!);
+    cart = cartModelFromJson(response.data!);
     return cart;
   }
 
   @override
   Future<CartModel> deleteFromCart(int productId) async {
-     final CartModel cart;
-  final Response<String> response = await httpClient
+    final CartModel cart;
+    final Response<String> response = await httpClient
         .post('${baseUrl}delete_from_cart', data: {'product_id': productId});
     HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
-       cart = cartModelFromJson(response.data!);
+    cart = cartModelFromJson(response.data!);
     return cart;
   }
 
   @override
   Future<CartModel> getUserCart() async {
-    
     final CartModel cart;
-    final Response<String> response = await httpClient.post('${baseUrl}user_cart');
+    final Response<String> response =
+        await httpClient.post('${baseUrl}user_cart');
     HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     cart = cartModelFromJson(response.data!);
     return cart;
@@ -46,11 +48,18 @@ class CartRemoteDataSource extends ICartDataSource {
 
   @override
   Future<CartModel> removeFromCart(int productId) async {
-     final CartModel cart;
-     final Response<String> response = await httpClient
+    final CartModel cart;
+    final Response<String> response = await httpClient
         .post('${baseUrl}remove_from_cart', data: {'product_id': productId});
     HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
-       cart = cartModelFromJson(response.data!);
+    cart = cartModelFromJson(response.data!);
     return cart;
+  }
+
+  @override
+  Future<String> cartPayment() async {
+    final response = await httpClient.post('${baseUrl}payment');
+    HTTPResponseValidator.isValidStatusCode(response.statusCode ?? 0);
+    return response.data['action'];
   }
 }
