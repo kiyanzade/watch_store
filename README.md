@@ -1,16 +1,15 @@
-# watch_store_app
+# Watch Store 
 
-A new Flutter project.
+A Flutter watch store project that focused on the BLoC pattern, Dependency Injection and smart route management to ensure efficient page navigation and data handling. Data is fetched from an API, following the Repository pattern for a clean and scalable architecture.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- User Registration and Login with Authorization 
+- Browse Product List
+- Product Categories
+- View Product Details, Features, and Comments
+- Add Products to Cart and Payment
+- User Profile Management
+- and more ..
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
